@@ -3,7 +3,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { FlowscaleAPI } from "flowscale";
-import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -239,23 +238,27 @@ export function ImageTransformer() {
           
           {isLoading && (
             <div className="space-y-4">
-              <Progress value={uploadProgress} className="w-full" />
-              <Button
-                variant="destructive"
-                onClick={handleCancel}
-                className="w-full"
-              >
-                Cancel
-              </Button>
+              <div className="text-center text-white/60">Generating...</div>
+              <div className="flex justify-end">
+                <Button
+                  variant="destructive"
+                  onClick={handleCancel}
+                  className="bg-red-500 hover:bg-red-600"
+                >
+                  Cancel
+                </Button>
+              </div>
             </div>
           )}
 
-          {outputImageUrl && (
-            <img
-              src={outputImageUrl}
-              alt="Generated"
-              className="w-full h-64 object-cover rounded-lg"
-            />
+          {outputImageUrl && !isLoading && (
+            <div className="space-y-4">
+              <img
+                src={outputImageUrl}
+                alt="Generated"
+                className="w-full h-64 object-cover rounded-lg"
+              />
+            </div>
           )}
 
           {!isLoading && !outputImageUrl && (
